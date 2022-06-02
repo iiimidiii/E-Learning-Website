@@ -15,7 +15,7 @@ namespace Du_An.Migrations
                 {
                     MaLop = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: false),
                     TenLop = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: true),
-                    PhongHoc = table.Column<string>(type: "nchar(250)", fixedLength: true, maxLength: 250, nullable: true)
+                    PhongHoc = table.Column<string>(type: "nchar(200)", fixedLength: true, maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
