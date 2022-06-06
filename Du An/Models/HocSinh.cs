@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace Du_An.Models
 {
-    public partial class Sinhvien
+    public partial class HocSinh
     {
-        public Sinhvien()
+        public HocSinh()
         {
-            LoginSvs = new HashSet<LoginSv>();
+            LoginHs = new HashSet<LoginH>();
         }
 
-        public string MaSv { get; set; } = null!;
-        public string? TenSv { get; set; }
+        public string MaHs { get; set; } = null!;
+        public string? TenHs { get; set; }
         public string? GioiTinh { get; set; }
         public DateTime? NgaySinh { get; set; }
         public string? Gvcn { get; set; }
@@ -23,6 +23,6 @@ namespace Du_An.Models
         public virtual Lop MaLopNavigation { get; set; } = null!;
         public virtual Monhoc? MaMhNavigation { get; set; }
         public virtual Bangdiem Bangdiem { get; set; } = null!;
-        public virtual ICollection<LoginSv> LoginSvs { get; set; }
+        public virtual ICollection<LoginH> LoginHs { get; set; }
     }
 }

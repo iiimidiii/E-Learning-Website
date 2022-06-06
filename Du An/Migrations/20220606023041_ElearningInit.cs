@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Du_An.Migrations
 {
-    public partial class Elearning : Migration
+    public partial class ElearningInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,8 @@ namespace Du_An.Migrations
                 {
                     MaLop = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: false),
                     TenLop = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: true),
-                    PhongHoc = table.Column<string>(type: "nchar(200)", fixedLength: true, maxLength: 200, nullable: true)
+                    PhongHoc = table.Column<string>(type: "nchar(250)", fixedLength: true, maxLength: 250, nullable: true),
+                    ChiTiet = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -48,6 +49,19 @@ namespace Du_An.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "QuyenHan",
+                columns: table => new
+                {
+                    MaQuyenHan = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: false),
+                    TenQuyenHan = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    ChiTietQuyenHan = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_QuyenHan", x => x.MaQuyenHan);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "VaiTroGiaoVien",
                 columns: table => new
                 {
@@ -60,11 +74,11 @@ namespace Du_An.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sinhvien",
+                name: "HocSinh",
                 columns: table => new
                 {
-                    MaSV = table.Column<string>(type: "nchar(15)", fixedLength: true, maxLength: 15, nullable: false),
-                    TenSV = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    MaHS = table.Column<string>(type: "nchar(15)", fixedLength: true, maxLength: 15, nullable: false),
+                    TenHS = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     GioiTinh = table.Column<string>(type: "nchar(5)", fixedLength: true, maxLength: 5, nullable: true),
                     NgaySinh = table.Column<DateTime>(type: "date", nullable: true),
                     GVCN = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
@@ -74,7 +88,7 @@ namespace Du_An.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SV", x => x.MaSV);
+                    table.PrimaryKey("PK_SV", x => x.MaHS);
                     table.ForeignKey(
                         name: "FK_Sinhvien_Lop",
                         column: x => x.MaLop,
@@ -93,6 +107,27 @@ namespace Du_An.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Leadership",
+                columns: table => new
+                {
+                    MaLS = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TenLS = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    NgaySinh = table.Column<DateTime>(type: "date", nullable: true),
+                    ChucVu = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    MaQuyenHan = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Leadership", x => x.MaLS);
+                    table.ForeignKey(
+                        name: "FK_Leadership_QuyenHan",
+                        column: x => x.MaQuyenHan,
+                        principalTable: "QuyenHan",
+                        principalColumn: "MaQuyenHan");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GiaoVien",
                 columns: table => new
                 {
@@ -103,6 +138,7 @@ namespace Du_An.Migrations
                     IDVaiTro = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: true),
                     MaMH = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: true),
                     IDNienKhoa = table.Column<int>(type: "int", nullable: true),
+                    MaQuyenHan = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: true),
                     MaLop = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: true)
                 },
                 constraints: table =>
@@ -119,6 +155,11 @@ namespace Du_An.Migrations
                         principalTable: "NienKhoa",
                         principalColumn: "IDNienKhoa");
                     table.ForeignKey(
+                        name: "FK_GiaoVien_QuyenHan",
+                        column: x => x.MaQuyenHan,
+                        principalTable: "QuyenHan",
+                        principalColumn: "MaQuyenHan");
+                    table.ForeignKey(
                         name: "FK_GiaoVien_VaiTroGiaoVien",
                         column: x => x.IDVaiTro,
                         principalTable: "VaiTroGiaoVien",
@@ -126,23 +167,43 @@ namespace Du_An.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LoginSV",
+                name: "LoginHS",
                 columns: table => new
                 {
-                    IdloginSV = table.Column<int>(type: "int", nullable: false),
+                    IdloginHS = table.Column<int>(type: "int", nullable: false),
                     Username = table.Column<string>(type: "nchar(20)", fixedLength: true, maxLength: 20, nullable: true),
                     Password = table.Column<string>(type: "nchar(30)", fixedLength: true, maxLength: 30, nullable: true),
                     Email = table.Column<string>(type: "nchar(50)", fixedLength: true, maxLength: 50, nullable: true),
-                    MaSV = table.Column<string>(type: "nchar(15)", fixedLength: true, maxLength: 15, nullable: false)
+                    MaHS = table.Column<string>(type: "nchar(15)", fixedLength: true, maxLength: 15, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Account", x => x.IdloginSV);
+                    table.PrimaryKey("PK_Account", x => x.IdloginHS);
                     table.ForeignKey(
-                        name: "FK_LoginSV_Sinhvien",
-                        column: x => x.MaSV,
-                        principalTable: "Sinhvien",
-                        principalColumn: "MaSV");
+                        name: "FK_LoginHS_HocSinh",
+                        column: x => x.MaHS,
+                        principalTable: "HocSinh",
+                        principalColumn: "MaHS");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LoginLS",
+                columns: table => new
+                {
+                    IdLoginLS = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: false),
+                    UserName = table.Column<string>(type: "nchar(20)", fixedLength: true, maxLength: 20, nullable: true),
+                    Password = table.Column<string>(type: "nchar(30)", fixedLength: true, maxLength: 30, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    MaLS = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LoginLS", x => x.IdLoginLS);
+                    table.ForeignKey(
+                        name: "FK_LoginLS_Leadership",
+                        column: x => x.MaLS,
+                        principalTable: "Leadership",
+                        principalColumn: "MaLS");
                 });
 
             migrationBuilder.CreateTable(
@@ -171,8 +232,8 @@ namespace Du_An.Migrations
                     table.ForeignKey(
                         name: "FK_Bangdiem_Sinhvien",
                         column: x => x.MaSV,
-                        principalTable: "Sinhvien",
-                        principalColumn: "MaSV");
+                        principalTable: "HocSinh",
+                        principalColumn: "MaHS");
                 });
 
             migrationBuilder.CreateTable(
@@ -217,29 +278,44 @@ namespace Du_An.Migrations
                 column: "MaLop");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GiaoVien_MaQuyenHan",
+                table: "GiaoVien",
+                column: "MaQuyenHan");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HocSinh_IDNienKhoa",
+                table: "HocSinh",
+                column: "IDNienKhoa");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HocSinh_MaLop",
+                table: "HocSinh",
+                column: "MaLop");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HocSinh_MaMH",
+                table: "HocSinh",
+                column: "MaMH");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Leadership_MaQuyenHan",
+                table: "Leadership",
+                column: "MaQuyenHan");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LoginGV_MaGV",
                 table: "LoginGV",
                 column: "MaGV");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LoginSV_MaSV",
-                table: "LoginSV",
-                column: "MaSV");
+                name: "IX_LoginHS_MaHS",
+                table: "LoginHS",
+                column: "MaHS");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sinhvien_IDNienKhoa",
-                table: "Sinhvien",
-                column: "IDNienKhoa");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Sinhvien_MaLop",
-                table: "Sinhvien",
-                column: "MaLop");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Sinhvien_MaMH",
-                table: "Sinhvien",
-                column: "MaMH");
+                name: "IX_LoginLS_MaLS",
+                table: "LoginLS",
+                column: "MaLS");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -251,13 +327,19 @@ namespace Du_An.Migrations
                 name: "LoginGV");
 
             migrationBuilder.DropTable(
-                name: "LoginSV");
+                name: "LoginHS");
+
+            migrationBuilder.DropTable(
+                name: "LoginLS");
 
             migrationBuilder.DropTable(
                 name: "GiaoVien");
 
             migrationBuilder.DropTable(
-                name: "Sinhvien");
+                name: "HocSinh");
+
+            migrationBuilder.DropTable(
+                name: "Leadership");
 
             migrationBuilder.DropTable(
                 name: "VaiTroGiaoVien");
@@ -270,6 +352,9 @@ namespace Du_An.Migrations
 
             migrationBuilder.DropTable(
                 name: "NienKhoa");
+
+            migrationBuilder.DropTable(
+                name: "QuyenHan");
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Du_An.Models
         public Lop()
         {
             GiaoViens = new HashSet<GiaoVien>();
-            Sinhviens = new HashSet<Sinhvien>();
+            HocSinhs = new HashSet<HocSinh>();
         }
 
         public string MaLop { get; set; } = null!;
@@ -17,6 +17,6 @@ namespace Du_An.Models
         public string? ChiTiet { get; set; }
 
         public virtual ICollection<GiaoVien> GiaoViens { get; set; }
-        public virtual ICollection<Sinhvien> Sinhviens { get; set; }
+        public virtual ICollection<HocSinh> HocSinhs { get; set; }
     }
 }

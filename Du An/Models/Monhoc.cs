@@ -7,12 +7,12 @@ namespace Du_An.Models
     {
         public Monhoc()
         {
-            Sinhviens = new HashSet<Sinhvien>();
+            HocSinhs = new HashSet<HocSinh>();
         }
 
         public string MaMh { get; set; } = null!;
         public string? TenMh { get; set; }
 
-        public virtual ICollection<Sinhvien> Sinhviens { get; set; }
+        public virtual ICollection<HocSinh> HocSinhs { get; set; }
     }
 }

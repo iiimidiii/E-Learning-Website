@@ -17,6 +17,6 @@ namespace Du_An.Models
         public string? MaGv { get; set; }
 
         public virtual GiaoVien? MaGvNavigation { get; set; }
-        public virtual Sinhvien MaSvNavigation { get; set; } = null!;
+        public virtual HocSinh MaSvNavigation { get; set; } = null!;
     }
 }

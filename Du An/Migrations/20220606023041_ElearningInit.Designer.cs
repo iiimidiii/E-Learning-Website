@@ -4,16 +4,18 @@ using Du_An.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace Du_An.Migrations
 {
-    [DbContext(typeof(ElearnningContext))]
-    partial class ElearnningContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ELearningContext))]
+    [Migration("20220606023041_ElearningInit")]
+    partial class ElearningInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,6 +110,11 @@ namespace Du_An.Migrations
                         .HasColumnName("MaMH")
                         .IsFixedLength();
 
+                    b.Property<string>("MaQuyenHan")
+                        .HasMaxLength(10)
+                        .HasColumnType("nchar(10)")
+                        .IsFixedLength();
+
                     b.Property<DateTime?>("NgaySinh")
                         .HasColumnType("date");
 
@@ -124,7 +131,96 @@ namespace Du_An.Migrations
 
                     b.HasIndex("MaLop");
 
+                    b.HasIndex("MaQuyenHan");
+
                     b.ToTable("GiaoVien", (string)null);
+                });
+
+            modelBuilder.Entity("Du_An.Models.HocSinh", b =>
+                {
+                    b.Property<string>("MaHs")
+                        .HasMaxLength(15)
+                        .HasColumnType("nchar(15)")
+                        .HasColumnName("MaHS")
+                        .IsFixedLength();
+
+                    b.Property<string>("GioiTinh")
+                        .HasMaxLength(5)
+                        .HasColumnType("nchar(5)")
+                        .IsFixedLength();
+
+                    b.Property<string>("Gvcn")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("GVCN");
+
+                    b.Property<int?>("IdnienKhoa")
+                        .HasColumnType("int")
+                        .HasColumnName("IDNienKhoa");
+
+                    b.Property<string>("MaLop")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nchar(10)")
+                        .IsFixedLength();
+
+                    b.Property<string>("MaMh")
+                        .HasMaxLength(10)
+                        .HasColumnType("nchar(10)")
+                        .HasColumnName("MaMH")
+                        .IsFixedLength();
+
+                    b.Property<DateTime?>("NgaySinh")
+                        .HasColumnType("date");
+
+                    b.Property<string>("TenHs")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("TenHS");
+
+                    b.HasKey("MaHs")
+                        .HasName("PK_SV");
+
+                    b.HasIndex("IdnienKhoa");
+
+                    b.HasIndex("MaLop");
+
+                    b.HasIndex("MaMh");
+
+                    b.ToTable("HocSinh", (string)null);
+                });
+
+            modelBuilder.Entity("Du_An.Models.Leadership", b =>
+                {
+                    b.Property<int>("MaLs")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("MaLS");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaLs"), 1L, 1);
+
+                    b.Property<string>("ChucVu")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("MaQuyenHan")
+                        .HasMaxLength(10)
+                        .HasColumnType("nchar(10)")
+                        .IsFixedLength();
+
+                    b.Property<DateTime?>("NgaySinh")
+                        .HasColumnType("date");
+
+                    b.Property<string>("TenLs")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("TenLS");
+
+                    b.HasKey("MaLs");
+
+                    b.HasIndex("MaQuyenHan");
+
+                    b.ToTable("Leadership", (string)null);
                 });
 
             modelBuilder.Entity("Du_An.Models.LoginGv", b =>
@@ -164,22 +260,22 @@ namespace Du_An.Migrations
                     b.ToTable("LoginGV", (string)null);
                 });
 
-            modelBuilder.Entity("Du_An.Models.LoginSv", b =>
+            modelBuilder.Entity("Du_An.Models.LoginH", b =>
                 {
-                    b.Property<int>("IdloginSv")
+                    b.Property<int>("IdloginHs")
                         .HasColumnType("int")
-                        .HasColumnName("IdloginSV");
+                        .HasColumnName("IdloginHS");
 
                     b.Property<string>("Email")
                         .HasMaxLength(50)
                         .HasColumnType("nchar(50)")
                         .IsFixedLength();
 
-                    b.Property<string>("MaSv")
+                    b.Property<string>("MaHs")
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nchar(15)")
-                        .HasColumnName("MaSV")
+                        .HasColumnName("MaHS")
                         .IsFixedLength();
 
                     b.Property<string>("Password")
@@ -192,12 +288,46 @@ namespace Du_An.Migrations
                         .HasColumnType("nchar(20)")
                         .IsFixedLength();
 
-                    b.HasKey("IdloginSv")
+                    b.HasKey("IdloginHs")
                         .HasName("PK_Account");
 
-                    b.HasIndex("MaSv");
+                    b.HasIndex("MaHs");
 
-                    b.ToTable("LoginSV", (string)null);
+                    b.ToTable("LoginHS", (string)null);
+                });
+
+            modelBuilder.Entity("Du_An.Models.LoginL", b =>
+                {
+                    b.Property<string>("IdLoginLs")
+                        .HasMaxLength(10)
+                        .HasColumnType("nchar(10)")
+                        .HasColumnName("IdLoginLS")
+                        .IsFixedLength();
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int>("MaLs")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("MaLS");
+
+                    b.Property<string>("Password")
+                        .HasMaxLength(30)
+                        .HasColumnType("nchar(30)")
+                        .IsFixedLength();
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(20)
+                        .HasColumnType("nchar(20)")
+                        .IsFixedLength();
+
+                    b.HasKey("IdLoginLs");
+
+                    b.HasIndex("MaLs");
+
+                    b.ToTable("LoginLS", (string)null);
                 });
 
             modelBuilder.Entity("Du_An.Models.Lop", b =>
@@ -207,9 +337,13 @@ namespace Du_An.Migrations
                         .HasColumnType("nchar(10)")
                         .IsFixedLength();
 
+                    b.Property<string>("ChiTiet")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<string>("PhongHoc")
-                        .HasMaxLength(50)
-                        .HasColumnType("nchar(50)")
+                        .HasMaxLength(250)
+                        .HasColumnType("nchar(250)")
                         .IsFixedLength();
 
                     b.Property<string>("TenLop")
@@ -260,58 +394,24 @@ namespace Du_An.Migrations
                     b.ToTable("NienKhoa", (string)null);
                 });
 
-            modelBuilder.Entity("Du_An.Models.Sinhvien", b =>
+            modelBuilder.Entity("Du_An.Models.QuyenHan", b =>
                 {
-                    b.Property<string>("MaSv")
-                        .HasMaxLength(15)
-                        .HasColumnType("nchar(15)")
-                        .HasColumnName("MaSV")
-                        .IsFixedLength();
-
-                    b.Property<string>("GioiTinh")
-                        .HasMaxLength(5)
-                        .HasColumnType("nchar(5)")
-                        .IsFixedLength();
-
-                    b.Property<string>("Gvcn")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)")
-                        .HasColumnName("GVCN");
-
-                    b.Property<int?>("IdnienKhoa")
-                        .HasColumnType("int")
-                        .HasColumnName("IDNienKhoa");
-
-                    b.Property<string>("MaLop")
-                        .IsRequired()
+                    b.Property<string>("MaQuyenHan")
                         .HasMaxLength(10)
                         .HasColumnType("nchar(10)")
                         .IsFixedLength();
 
-                    b.Property<string>("MaMh")
-                        .HasMaxLength(10)
-                        .HasColumnType("nchar(10)")
-                        .HasColumnName("MaMH")
-                        .IsFixedLength();
-
-                    b.Property<DateTime?>("NgaySinh")
-                        .HasColumnType("date");
-
-                    b.Property<string>("TenSv")
+                    b.Property<string>("ChiTietQuyenHan")
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)")
-                        .HasColumnName("TenSV");
+                        .HasColumnType("nvarchar(250)");
 
-                    b.HasKey("MaSv")
-                        .HasName("PK_SV");
+                    b.Property<string>("TenQuyenHan")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
-                    b.HasIndex("IdnienKhoa");
+                    b.HasKey("MaQuyenHan");
 
-                    b.HasIndex("MaLop");
-
-                    b.HasIndex("MaMh");
-
-                    b.ToTable("Sinhvien", (string)null);
+                    b.ToTable("QuyenHan", (string)null);
                 });
 
             modelBuilder.Entity("Du_An.Models.VaiTroGiaoVien", b =>
@@ -338,7 +438,7 @@ namespace Du_An.Migrations
                         .HasForeignKey("MaGv")
                         .HasConstraintName("FK_Bangdiem_GiaoVien");
 
-                    b.HasOne("Du_An.Models.Sinhvien", "MaSvNavigation")
+                    b.HasOne("Du_An.Models.HocSinh", "MaSvNavigation")
                         .WithOne("Bangdiem")
                         .HasForeignKey("Du_An.Models.Bangdiem", "MaSv")
                         .IsRequired()
@@ -366,11 +466,53 @@ namespace Du_An.Migrations
                         .HasForeignKey("MaLop")
                         .HasConstraintName("FK_GiaoVien_Lop");
 
+                    b.HasOne("Du_An.Models.QuyenHan", "MaQuyenHanNavigation")
+                        .WithMany("GiaoViens")
+                        .HasForeignKey("MaQuyenHan")
+                        .HasConstraintName("FK_GiaoVien_QuyenHan");
+
                     b.Navigation("IdnienKhoaNavigation");
 
                     b.Navigation("IdvaiTroNavigation");
 
                     b.Navigation("MaLopNavigation");
+
+                    b.Navigation("MaQuyenHanNavigation");
+                });
+
+            modelBuilder.Entity("Du_An.Models.HocSinh", b =>
+                {
+                    b.HasOne("Du_An.Models.NienKhoa", "IdnienKhoaNavigation")
+                        .WithMany("HocSinhs")
+                        .HasForeignKey("IdnienKhoa")
+                        .HasConstraintName("FK_Sinhvien_NienKhoa");
+
+                    b.HasOne("Du_An.Models.Lop", "MaLopNavigation")
+                        .WithMany("HocSinhs")
+                        .HasForeignKey("MaLop")
+                        .IsRequired()
+                        .HasConstraintName("FK_Sinhvien_Lop");
+
+                    b.HasOne("Du_An.Models.Monhoc", "MaMhNavigation")
+                        .WithMany("HocSinhs")
+                        .HasForeignKey("MaMh")
+                        .HasConstraintName("FK_Sinhvien_Monhoc");
+
+                    b.Navigation("IdnienKhoaNavigation");
+
+                    b.Navigation("MaLopNavigation");
+
+                    b.Navigation("MaMhNavigation");
+                });
+
+            modelBuilder.Entity("Du_An.Models.Leadership", b =>
+                {
+                    b.HasOne("Du_An.Models.QuyenHan", "MaQuyenHanNavigation")
+                        .WithMany("Leaderships")
+                        .HasForeignKey("MaQuyenHan")
+                        .HasConstraintName("FK_Leadership_QuyenHan");
+
+                    b.Navigation("MaQuyenHanNavigation");
                 });
 
             modelBuilder.Entity("Du_An.Models.LoginGv", b =>
@@ -383,40 +525,26 @@ namespace Du_An.Migrations
                     b.Navigation("MaGvNavigation");
                 });
 
-            modelBuilder.Entity("Du_An.Models.LoginSv", b =>
+            modelBuilder.Entity("Du_An.Models.LoginH", b =>
                 {
-                    b.HasOne("Du_An.Models.Sinhvien", "MaSvNavigation")
-                        .WithMany("LoginSvs")
-                        .HasForeignKey("MaSv")
+                    b.HasOne("Du_An.Models.HocSinh", "MaHsNavigation")
+                        .WithMany("LoginHs")
+                        .HasForeignKey("MaHs")
                         .IsRequired()
-                        .HasConstraintName("FK_LoginSV_Sinhvien");
+                        .HasConstraintName("FK_LoginHS_HocSinh");
 
-                    b.Navigation("MaSvNavigation");
+                    b.Navigation("MaHsNavigation");
                 });
 
-            modelBuilder.Entity("Du_An.Models.Sinhvien", b =>
+            modelBuilder.Entity("Du_An.Models.LoginL", b =>
                 {
-                    b.HasOne("Du_An.Models.NienKhoa", "IdnienKhoaNavigation")
-                        .WithMany("Sinhviens")
-                        .HasForeignKey("IdnienKhoa")
-                        .HasConstraintName("FK_Sinhvien_NienKhoa");
-
-                    b.HasOne("Du_An.Models.Lop", "MaLopNavigation")
-                        .WithMany("Sinhviens")
-                        .HasForeignKey("MaLop")
+                    b.HasOne("Du_An.Models.Leadership", "MaLsNavigation")
+                        .WithMany("LoginLs")
+                        .HasForeignKey("MaLs")
                         .IsRequired()
-                        .HasConstraintName("FK_Sinhvien_Lop");
+                        .HasConstraintName("FK_LoginLS_Leadership");
 
-                    b.HasOne("Du_An.Models.Monhoc", "MaMhNavigation")
-                        .WithMany("Sinhviens")
-                        .HasForeignKey("MaMh")
-                        .HasConstraintName("FK_Sinhvien_Monhoc");
-
-                    b.Navigation("IdnienKhoaNavigation");
-
-                    b.Navigation("MaLopNavigation");
-
-                    b.Navigation("MaMhNavigation");
+                    b.Navigation("MaLsNavigation");
                 });
 
             modelBuilder.Entity("Du_An.Models.GiaoVien", b =>
@@ -426,31 +554,43 @@ namespace Du_An.Migrations
                     b.Navigation("LoginGvs");
                 });
 
+            modelBuilder.Entity("Du_An.Models.HocSinh", b =>
+                {
+                    b.Navigation("Bangdiem")
+                        .IsRequired();
+
+                    b.Navigation("LoginHs");
+                });
+
+            modelBuilder.Entity("Du_An.Models.Leadership", b =>
+                {
+                    b.Navigation("LoginLs");
+                });
+
             modelBuilder.Entity("Du_An.Models.Lop", b =>
                 {
                     b.Navigation("GiaoViens");
 
-                    b.Navigation("Sinhviens");
+                    b.Navigation("HocSinhs");
                 });
 
             modelBuilder.Entity("Du_An.Models.Monhoc", b =>
                 {
-                    b.Navigation("Sinhviens");
+                    b.Navigation("HocSinhs");
                 });
 
             modelBuilder.Entity("Du_An.Models.NienKhoa", b =>
                 {
                     b.Navigation("GiaoViens");
 
-                    b.Navigation("Sinhviens");
+                    b.Navigation("HocSinhs");
                 });
 
-            modelBuilder.Entity("Du_An.Models.Sinhvien", b =>
+            modelBuilder.Entity("Du_An.Models.QuyenHan", b =>
                 {
-                    b.Navigation("Bangdiem")
-                        .IsRequired();
+                    b.Navigation("GiaoViens");
 
-                    b.Navigation("LoginSvs");
+                    b.Navigation("Leaderships");
                 });
 
             modelBuilder.Entity("Du_An.Models.VaiTroGiaoVien", b =>
