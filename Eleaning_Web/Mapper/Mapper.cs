@@ -12,7 +12,7 @@ namespace Eleaning_Web.Mapper
 
             this.CreateMap<CLassDTO, Class>();
             this.CreateMap<Class, CLassDTO>();
-
+           
 
 
         }

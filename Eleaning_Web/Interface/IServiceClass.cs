@@ -1,5 +1,4 @@
-﻿using Eleaning_Web.Model;
-using Eleaning_Web.Model;
+﻿using Eleaning_Web.Models;
 using Eleaning_Web.Services;
 namespace Eleaning_Web.Interface
 {

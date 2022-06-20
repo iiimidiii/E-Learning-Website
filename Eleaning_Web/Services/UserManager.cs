@@ -1,11 +1,11 @@
-﻿using Eleaning_Web.Model;
+﻿using Eleaning_Web.Models;
 using Eleaning_Web.Interface;
 namespace Eleaning_Web.Services
 {
     public class UserManager : IServiceUser
     {
-        private readonly DBContext _context;
-        public UserManager(DBContext context)
+        private readonly AltaContext _context;
+        public UserManager(AltaContext context)
         {
             _context = context;
         }

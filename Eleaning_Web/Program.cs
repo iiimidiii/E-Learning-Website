@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-using Eleaning_Web.Model;
+using Eleaning_Web.Models;
 using Eleaning_Web.Interface;
 using Eleaning_Web.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddDbContext<DBContext>(options =>
+builder.Services.AddDbContext<AltaContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
 builder.Services.AddScoped<IServiceUser, UserManager>();
 builder.Services.AddControllers();
