@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Eleaning_Web.Model;
+using Eleaning_Web.Models;
 using Eleaning_Web.Services;
 using Eleaning_Web.Interface;
 
