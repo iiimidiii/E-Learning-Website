@@ -4,44 +4,45 @@ using Eleaning_Web.Interface;
 using Eleaning_Web.Models;
 namespace Eleaning_Web.Repository
 {
-    public class ClassRepository : Class
+    public class ExamRepository : Exam
     {
         private readonly IMapper admap;
         private readonly AltaContext con;
 
 
-        public ClassRepository(AltaContext context, IMapper mapper)
+        public ExamRepository(AltaContext context, IMapper mapper)
         {
             con = context;
             admap = mapper;
         }
 
 
-        public List<CLassDTO> GetAll()
+
+        public List<ExamDTO> GetAll()
         {
-            var allClass = con.Classes.ToList();
-            return admap.Map<List<CLassDTO>>(allClass);
+            var allExam = con.Exams.ToList();
+            return admap.Map<List<ExamDTO>>(allExam);
         }
 
 
 
-        public CLassDTO GetById(string ClassId)
+        public ExamDTO GetById(int ExamId)
         {
-            var byid = con.Classes.Find(ClassId);
+            var byid = con.Exams.Find(ExamId);
             if (byid == null)
             {
                 return null;
             }
 
-            return admap.Map<CLassDTO>(byid);
+            return admap.Map<ExamDTO>(byid);
         }
 
-        public bool Insert(CLassDTO classDTO)
+        public bool Insert(ExamDTO exam)
         {
-            var insert = con.Classes.Find(classDTO.ClassId);
+            var insert = con.Exams.Find(exam.ExamId);
             if (insert == null)
             {
-                con.Classes.Add(admap.Map<Class>(classDTO));
+                con.Exams.Add(admap.Map<Exam>(exam));
                 return true;
             }
             return false;
@@ -52,12 +53,12 @@ namespace Eleaning_Web.Repository
             con.SaveChanges();
         }
 
-        public bool Update(CLassDTO classDTO)
+        public bool Update(ExamDTO exam)
         {
-            var Update = con.Classes.Find(classDTO.ClassId);
+            var Update = con.Exams.Find(exam.ExamId);
             if (Update != null)
             {
-                con.Classes.Update(admap.Map(classDTO, Update));
+                con.Exams.Update(admap.Map(exam, Update));
                 return true;
             }
             return false;

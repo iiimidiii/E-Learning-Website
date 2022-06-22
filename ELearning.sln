@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.2.32427.441
+VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ELearning", "Eleaning_Web\ELearning.csproj", "{21AE9BBC-D26C-465C-8340-59534CEBDF7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ELearning", "ELearning\ELearning.csproj", "{94EF74DC-D88D-4A81-B4CE-9077AFA5EAAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{21AE9BBC-D26C-465C-8340-59534CEBDF7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21AE9BBC-D26C-465C-8340-59534CEBDF7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21AE9BBC-D26C-465C-8340-59534CEBDF7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{21AE9BBC-D26C-465C-8340-59534CEBDF7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94EF74DC-D88D-4A81-B4CE-9077AFA5EAAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94EF74DC-D88D-4A81-B4CE-9077AFA5EAAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94EF74DC-D88D-4A81-B4CE-9077AFA5EAAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94EF74DC-D88D-4A81-B4CE-9077AFA5EAAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {2308B8C2-850B-4472-BBFD-D862BA03D653}
+		SolutionGuid = {F1B504DA-5D9C-41EE-ABF4-A79739A8B53B}
 	EndGlobalSection
 EndGlobal

@@ -6,14 +6,18 @@ namespace Eleaning_Web.Mapper
 {
     public class Mapper : Profile
     {
-        public mapper()
+        public Mapper()
         {
 
 
             this.CreateMap<CLassDTO, Class>();
             this.CreateMap<Class, CLassDTO>();
-           
 
+            this.CreateMap<DocumentDTO, Document>();
+            this.CreateMap<Document, DocumentDTO>();
+
+            this.CreateMap<ResultDTO, Result>();
+            this.CreateMap<Result, ResultDTO>();
 
         }
          
