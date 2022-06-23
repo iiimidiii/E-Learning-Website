@@ -4,7 +4,7 @@ using Eleaning_Web.Interface;
 using Eleaning_Web.Models;
 namespace Eleaning_Web.Repository
 {
-    public class ExamRepository : Exam
+    public class ExamRepository : IExam
     {
         private readonly IMapper admap;
         private readonly AltaContext con;
@@ -16,7 +16,16 @@ namespace Eleaning_Web.Repository
             admap = mapper;
         }
 
-
+        public bool Delete(int ExamId)
+        {
+            var DeleteExam = con.Exams.Find(ExamId);
+            if (DeleteExam == null)
+            {
+                return false;
+            }
+            con.Remove(DeleteExam);
+            return true;
+        }
 
         public List<ExamDTO> GetAll()
         {

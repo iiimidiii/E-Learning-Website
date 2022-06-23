@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Eleaning_Web.Models;
 using Eleaning_Web.Interface;
+using Eleaning_Web.Repository;
 using Eleaning_Web.Services;
+using Eleaning_Web;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,6 +15,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<Class, ClassRepository>();
+builder.Services.AddScoped<IDocument, DocumentRepository>();
+builder.Services.AddScoped<IExam, ExamRepository>();
+builder.Services.AddScoped<Result, ResultRepository>();
+
 
 var app = builder.Build();
 
