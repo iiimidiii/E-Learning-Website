@@ -19,7 +19,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<Class, ClassRepository>();
 builder.Services.AddScoped<IDocument, DocumentRepository>();
 builder.Services.AddScoped<IExam, ExamRepository>();
-builder.Services.AddScoped<Result, ResultRepository>();
+builder.Services.AddScoped<IResults, ResultRepository>();
 
 
 var app = builder.Build();

@@ -14,9 +14,9 @@ namespace Eleaning_Web.Controllers
     [ApiController]
     public class ResultController : ControllerBase
     {
-        private readonly Interface.IResult _leaR;
+        private readonly Interface.IResults _leaR;
         private readonly IMapper _mapper;
-        public ResultController(Interface.IResult learningResult, IMapper mapper)
+        public ResultController(Interface.IResults learningResult, IMapper mapper)
         {
             _leaR = learningResult;
             _mapper = mapper;

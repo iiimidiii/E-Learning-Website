@@ -4,7 +4,7 @@ using Eleaning_Web.Interface;
 using Eleaning_Web.Models;
 namespace Eleaning_Web.Repository
 {
-    public class ResultRepository : Result
+    public class ResultRepository : IResults
     {
         private readonly IMapper admap;
         private readonly AltaContext con;
@@ -18,9 +18,9 @@ namespace Eleaning_Web.Repository
 
 
 
-        public bool Delete(string LRId)
+        public bool Delete(string ResultId)
         {
-            var DeleteLearning = con.Results.Find(LRId);
+            var DeleteLearning = con.Results.Find(ResultId);
             if (DeleteLearning == null)
             {
                 return false;
@@ -31,8 +31,8 @@ namespace Eleaning_Web.Repository
 
         public List<ResultDTO> GetAll()
         {
-            var allLearning = con.Results.ToList();
-            return admap.Map<List<ResultDTO>>(allLearning);
+            var Result = con.Results.ToList();
+            return admap.Map<List<ResultDTO>>(Result);
         }
 
 
@@ -48,12 +48,12 @@ namespace Eleaning_Web.Repository
             return admap.Map<ResultDTO>(byid);
         }
 
-        public bool Insert(ResultDTO learningResult)
+        public bool Insert(ResultDTO Result)
         {
-            var insert = con.Results.Find(learningResult.LRId);
+            var insert = con.Results.Find(Result.ResultId);
             if (insert == null)
             {
-                con.Results.Add(admap.Map<Result>(learningResult));
+                con.Results.Add(admap.Map<Result>(Result));
                 return true;
             }
             return false;
@@ -64,12 +64,12 @@ namespace Eleaning_Web.Repository
             con.SaveChanges();
         }
 
-        public bool Update(ResultDTO learningResult)
+        public bool Update(ResultDTO Result)
         {
-            var Update = con.Results.Find(learningResult.LRId);
+            var Update = con.Results.Find(Result.ResultId);
             if (Update != null)
             {
-                con.Results.Update(admap.Map(learningResult, Update));
+                con.Results.Update(admap.Map(Result, Update));
                 return true;
             }
             return false;
